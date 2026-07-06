@@ -942,6 +942,8 @@ RunService.RenderStepped:Connect(function()
 
             local Part =
                 Target.Character[AimPart]
+                
+                if Visible and IsVisible(Part) then
 
             local NewCF = CFrame.lookAt(
                 Camera.CFrame.Position,
@@ -1042,7 +1044,7 @@ AimTab:CreateToggle({
 })
 
 ---------------------------------------------------
--- WALL CHECK
+-- WALL CHECK REAL
 ---------------------------------------------------
 
 local function IsVisible(targetPart)
@@ -1060,7 +1062,8 @@ local function IsVisible(targetPart)
         Enum.RaycastFilterType.Blacklist
 
     Params.FilterDescendantsInstances = {
-        LocalPlayer.Character
+        LocalPlayer.Character,
+        targetPart.Parent
     }
 
     local Result =
@@ -1070,12 +1073,11 @@ local function IsVisible(targetPart)
             Params
         )
 
-    if Result then
-
-        return Result.Instance:IsDescendantOf(
-            targetPart.Parent
-        )
+    -- SE NÃO BATEU EM NADA
+    if not Result then
+        return true
     end
 
+    -- TEM PAREDE
     return false
 end
