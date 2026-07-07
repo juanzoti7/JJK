@@ -507,68 +507,6 @@ end,
 
 ---
 
--- FULLBRIGHT
-
-PlayerTab:CreateToggle({
-Name = "FullBright",
-CurrentValue = false,
-
-Callback = function(Value)  
-
-    if Value then  
-
-        Lighting.Brightness = 2  
-        Lighting.ClockTime = 14  
-        Lighting.FogEnd = 100000  
-        Lighting.GlobalShadows = false  
-        Lighting.Ambient = Color3.fromRGB(255,255,255)  
-
-    else  
-
-        Lighting.Brightness = 1  
-        Lighting.ClockTime = 12  
-        Lighting.FogEnd = 1000  
-        Lighting.GlobalShadows = true  
-    end  
-end,
-
-})
-
-
----
-
--- FPS BOOST
-
-PlayerTab:CreateButton({
-Name = "FPS Boost",
-
-Callback = function()  
-
-    for _, v in pairs(game:GetDescendants()) do  
-
-        if v:IsA("BasePart") then  
-            v.Material = Enum.Material.SmoothPlastic  
-            v.Reflectance = 0  
-
-        elseif v:IsA("Decal") then  
-            v.Transparency = 1  
-
-        elseif v:IsA("ParticleEmitter") then  
-            v.Enabled = false  
-        end  
-    end  
-
-    Lighting.GlobalShadows = false  
-    Lighting.FogEnd = 9e9  
-
-end,
-
-})
-
-
----
-
-
 ---------------------------------------------------
 -- ABA ESP 👁️
 ---------------------------------------------------
@@ -817,6 +755,64 @@ ESPTab:CreateToggle({
     end,
 })
 
+---
+
+-- FULLBRIGHT
+
+PlayerTab:CreateToggle({
+Name = "FullBright",
+CurrentValue = false,
+
+Callback = function(Value)  
+
+    if Value then  
+
+        Lighting.Brightness = 2  
+        Lighting.ClockTime = 14  
+        Lighting.FogEnd = 100000  
+        Lighting.GlobalShadows = false  
+        Lighting.Ambient = Color3.fromRGB(255,255,255)  
+
+    else  
+
+        Lighting.Brightness = 1  
+        Lighting.ClockTime = 12  
+        Lighting.FogEnd = 1000  
+        Lighting.GlobalShadows = true  
+    end  
+end,
+
+})
+
+
+-- FPS BOOST
+
+PlayerTab:CreateButton({
+Name = "FPS Boost",
+
+Callback = function()  
+
+    for _, v in pairs(game:GetDescendants()) do  
+
+        if v:IsA("BasePart") then  
+            v.Material = Enum.Material.SmoothPlastic  
+            v.Reflectance = 0  
+
+        elseif v:IsA("Decal") then  
+            v.Transparency = 1  
+
+        elseif v:IsA("ParticleEmitter") then  
+            v.Enabled = false  
+        end  
+    end  
+
+    Lighting.GlobalShadows = false  
+    Lighting.FogEnd = 9e9  
+
+end,
+
+})
+
 ---------------------------------------------------
 -- 🔥 ABA AIM 🎯
 ---------------------------------------------------
@@ -1002,7 +998,7 @@ AimTab:CreateDropdown({
 
 AimTab:CreateToggle({
     Name = "Mostrar FOV",
-    CurrentValue = true,
+    CurrentValue = false,
 
     Callback = function(Value)
 
