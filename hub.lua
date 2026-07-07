@@ -943,7 +943,7 @@ RunService.RenderStepped:Connect(function()
             local Part =
                 Target.Character[AimPart]
                 
-                if IsVisible(Part) then
+                if IsVisible(Part) then  -- <-- SÓ ISSO, sem o "Visible and"
 
             local NewCF = CFrame.lookAt(
                 Camera.CFrame.Position,
@@ -1049,36 +1049,26 @@ AimTab:CreateToggle({
 ---------------------------------------------------
 
 local function IsVisible(targetPart)
-
-    local Origin =
-        Camera.CFrame.Position
-
-    local Direction =
-        (targetPart.Position - Origin)
-
-    local Params =
-        RaycastParams.new()
-
-    Params.FilterType =
-        Enum.RaycastFilterType.Blacklist
-
+    local Origin = Camera.CFrame.Position
+    local Direction = (targetPart.Position - Origin)
+    local Params = RaycastParams.new()
+    Params.FilterType = Enum.RaycastFilterType.Blacklist
     Params.FilterDescendantsInstances = {
-        LocalPlayer.Character,
+        LocalPlayer.Character,  -- <-- AGORA TÁ CERTO
         targetPart.Parent
     }
-
-    local Result =
-        workspace:Raycast(
-            Origin,
-            Direction,
-            Params
-        )
-
+    
+    local Result = workspace:Raycast(
+        Origin,
+        Direction,
+        Params
+    )
+    
     -- SE NÃO BATEU EM NADA
     if not Result then
         return true
     end
-
+    
     -- TEM PAREDE
     return false
 end
