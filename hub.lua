@@ -849,7 +849,7 @@ ESPTab:CreateToggle({
 })
 
 ---------------------------------------------------
--- ABA AIM TRAINING 🎯
+-- 🔥 ABA AIM 🎯
 ---------------------------------------------------
 
 local AimTab =
@@ -1018,10 +1018,10 @@ AimTab:CreateDropdown({
 
     Options = {
         "Head",
-        "HumanoidRootPart"
+        "Body"
     },
 
-    CurrentOption = {"HumanoidRootPart"},
+    CurrentOption = {"Body"},
 
     Callback = function(Option)
 
