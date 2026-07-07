@@ -853,7 +853,7 @@ ESPTab:CreateToggle({
 ---------------------------------------------------
 
 local AimTab =
-Window:CreateTab("Aim Training 🎯", 4483362458)
+Window:CreateTab("🔥 AimBot 🎯", 4483362458)
 
 local AimEnabled = false
 local AimPart = "HumanoidRootPart"
@@ -943,7 +943,7 @@ RunService.RenderStepped:Connect(function()
             local Part =
                 Target.Character[AimPart]
                 
-                if Visible and IsVisible(Part) then
+                if IsVisible(Part) then
 
             local NewCF = CFrame.lookAt(
                 Camera.CFrame.Position,
