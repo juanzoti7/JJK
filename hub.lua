@@ -238,6 +238,32 @@ end,
 
 ---
 
+-- ANTI AFK
+
+local AntiAFKConnection
+
+PlayerTab:CreateToggle({
+    Name = "Anti AFK",
+    CurrentValue = false,
+
+    Callback = function(Value)
+        if Value then
+            local VirtualUser = game:GetService("VirtualUser")
+
+            AntiAFKConnection = LocalPlayer.Idled:Connect(function()
+                VirtualUser:CaptureController()
+                VirtualUser:ClickButton2(Vector2.new())
+            end)
+
+        else
+            if AntiAFKConnection then
+                AntiAFKConnection:Disconnect()
+                AntiAFKConnection = nil
+            end
+        end
+    end,
+})
+
 -- ABA PLAYER
 
 local PlayerTab =
