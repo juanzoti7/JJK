@@ -530,6 +530,8 @@ end,
 
 })
 
+---
+
 ---------------------------------------------------
 -- ABA ESP 👁️
 ---------------------------------------------------
@@ -713,9 +715,9 @@ local function CreateESP(player)
             Line.Visible = false
             Name.Visible = false
             Distance.Visible = false
-        end
-    end)
-end
+        (end
+    end
+end)
 
 ---------------------------------------------------
 -- PLAYERS
@@ -1018,6 +1020,8 @@ AimTab:CreateToggle({
         FOV.Visible = Value
     end,
 })
+
+---
 
 ---------------------------------------------------
 -- ABA MISC 🛠️
