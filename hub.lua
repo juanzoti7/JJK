@@ -629,6 +629,25 @@ end,
 
 })
 
+---
+
+-- No Fog 💨
+
+PlayerTab:CreateToggle({
+    Name = "No Fog",
+    CurrentValue = false,
+
+    Callback = function(Value)
+
+        if Value then
+            Lighting.FogEnd = 1000000
+        else
+            Lighting.FogEnd = 1000
+        end
+
+    end,
+})
+
 ---------------------------------------------------
 -- ABA ESP 👁️
 ---------------------------------------------------
@@ -895,7 +914,7 @@ local Smoothness = 0.15
 ---------------------------------------------------
 
 local FOV = Drawing.new("Circle")
-FOV.Visible = true
+FOV.Visible = false
 FOV.Radius = FOVSize
 FOV.Color = Color3.fromRGB(255,0,0)
 FOV.Thickness = 2
