@@ -955,6 +955,7 @@ RunService.RenderStepped:Connect(function()
                     NewCF,
                     Smoothness
                 )
+                end
         end
     end
 end)
