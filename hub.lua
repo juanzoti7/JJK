@@ -171,7 +171,6 @@ end,
 
 })
 
-
 ---
 
 -- FOLLOW
@@ -662,7 +661,7 @@ local function CreateESP(player)
             Line.Visible = false
             Name.Visible = false
             Distance.Visible = false
-        (end
+        end
     end
 end)
 
