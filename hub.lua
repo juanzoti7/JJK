@@ -312,24 +312,6 @@ PlayerTab:CreateInput({
     end,
 })
 
-PlayerTab:CreateToggle({
-    Name = "Ativar Speed + Jump",
-    CurrentValue = false,
-
-    Callback = function(Value)
-        local Char = LocalPlayer.Character
-        if Char and Char:FindFirstChild("Humanoid") then
-            if Value then
-                Char.Humanoid.WalkSpeed = SavedSpeed
-                Char.Humanoid.JumpPower = SavedJump
-            else
-                Char.Humanoid.WalkSpeed = NormalSpeed
-                Char.Humanoid.JumpPower = NormalJump
-            end
-        end
-    end,
-})
-
 
 ---
 
