@@ -568,43 +568,6 @@ end,
 
 ---
 
--- REJOIN
-
-PlayerTab:CreateButton({
-Name = "Rejoin",
-
-Callback = function()  
-
-    TeleportService:Teleport(  
-        game.PlaceId,  
-        LocalPlayer  
-    )  
-end,
-
-})
-
-
----
-
--- RESET CHARACTER
-
-PlayerTab:CreateButton({
-Name = "Reset Character",
-
-Callback = function()  
-
-    local char = LocalPlayer.Character  
-
-    if char and char:FindFirstChild("Humanoid") then  
-        char.Humanoid.Health = 0  
-    end  
-end,
-
-})
-
-
----
-
 
 ---------------------------------------------------
 -- ABA ESP 👁️
@@ -1044,5 +1007,78 @@ AimTab:CreateToggle({
     Callback = function(Value)
 
         FOV.Visible = Value
+    end,
+})
+
+---------------------------------------------------
+-- MISC
+---------------------------------------------------
+
+local MiscTab = Window:CreateTab("Misc ⚒️", 4483362458)
+
+MiscTab:CreateParagraph({
+    Title = "Misc",
+    Content = "Utilitários e configurações."
+})
+
+-- RESET CHARACTER
+
+MiscTab:CreateButton({
+Name = "Reset Character",
+
+Callback = function()  
+
+    local char = LocalPlayer.Character  
+
+    if char and char:FindFirstChild("Humanoid") then  
+        char.Humanoid.Health = 0  
+    end  
+end,
+
+})
+
+-- REJOIN
+
+MiscTab:CreateButton({
+Name = "Rejoin",
+
+Callback = function()  
+
+    TeleportService:Teleport(  
+        game.PlaceId,  
+        LocalPlayer  
+    )  
+end,
+
+})
+
+local AntiAFKConnection
+
+MiscTab:CreateToggle({
+    Name = "Anti AFK",
+    CurrentValue = false,
+
+    Callback = function(Value)
+
+        if Value then
+
+            local VirtualUser = game:GetService("VirtualUser")
+
+            AntiAFKConnection = LocalPlayer.Idled:Connect(function()
+
+                VirtualUser:CaptureController()
+                VirtualUser:ClickButton2(Vector2.new(0,0))
+
+            end)
+
+        else
+
+            if AntiAFKConnection then
+                AntiAFKConnection:Disconnect()
+                AntiAFKConnection = nil
+            end
+
+        end
+
     end,
 })
