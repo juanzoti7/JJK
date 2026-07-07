@@ -497,105 +497,6 @@ end
 
 end)
 
-
----
-
--- FULLBRIGHT
-
-PlayerTab:CreateToggle({
-Name = "FullBright",
-CurrentValue = false,
-
-Callback = function(Value)  
-
-    if Value then  
-
-        Lighting.Brightness = 2  
-        Lighting.ClockTime = 14  
-        Lighting.FogEnd = 100000  
-        Lighting.GlobalShadows = false  
-        Lighting.Ambient = Color3.fromRGB(255,255,255)  
-
-    else  
-
-        Lighting.Brightness = 1  
-        Lighting.ClockTime = 12  
-        Lighting.FogEnd = 1000  
-        Lighting.GlobalShadows = true  
-    end  
-end,
-
-})
-
-
----
-
--- FPS BOOST
-
-PlayerTab:CreateButton({
-Name = "FPS Boost",
-
-Callback = function()  
-
-    for _, v in pairs(game:GetDescendants()) do  
-
-        if v:IsA("BasePart") then  
-            v.Material = Enum.Material.SmoothPlastic  
-            v.Reflectance = 0  
-
-        elseif v:IsA("Decal") then  
-            v.Transparency = 1  
-
-        elseif v:IsA("ParticleEmitter") then  
-            v.Enabled = false  
-        end  
-    end  
-
-    Lighting.GlobalShadows = false  
-    Lighting.FogEnd = 9e9  
-
-end,
-
-})
-
-
----
-
--- REJOIN
-
-PlayerTab:CreateButton({
-Name = "Rejoin",
-
-Callback = function()  
-
-    TeleportService:Teleport(  
-        game.PlaceId,  
-        LocalPlayer  
-    )  
-end,
-
-})
-
-
----
-
--- RESET CHARACTER
-
-PlayerTab:CreateButton({
-Name = "Reset Character",
-
-Callback = function()  
-
-    local char = LocalPlayer.Character  
-
-    if char and char:FindFirstChild("Humanoid") then  
-        char.Humanoid.Health = 0  
-    end  
-end,
-
-})
-
-
 ---
 
 -- PROTECTION BUBBLE
@@ -629,31 +530,12 @@ end,
 
 })
 
----
-
--- No Fog 💨
-
-PlayerTab:CreateToggle({
-    Name = "No Fog",
-    CurrentValue = false,
-
-    Callback = function(Value)
-
-        if Value then
-            Lighting.FogEnd = 1000000
-        else
-            Lighting.FogEnd = 1000
-        end
-
-    end,
-})
-
 ---------------------------------------------------
 -- ABA ESP 👁️
 ---------------------------------------------------
 
 local ESPTab =
-Window:CreateTab("ESP 👁️", 4483362458)
+Window:CreateTab("ESP/VISUAL 👁️", 4483362458)
 
 getgenv().ESPEnabled = false
 getgenv().ESPNames = true
@@ -896,6 +778,54 @@ ESPTab:CreateToggle({
     end,
 })
 
+---
+
+-- FULLBRIGHT
+
+PlayerTab:CreateToggle({
+Name = "FullBright",
+CurrentValue = false,
+
+Callback = function(Value)  
+
+    if Value then  
+
+        Lighting.Brightness = 2  
+        Lighting.ClockTime = 14  
+        Lighting.FogEnd = 100000  
+        Lighting.GlobalShadows = false  
+        Lighting.Ambient = Color3.fromRGB(255,255,255)  
+
+    else  
+
+        Lighting.Brightness = 1  
+        Lighting.ClockTime = 12  
+        Lighting.FogEnd = 1000  
+        Lighting.GlobalShadows = true  
+    end  
+end,
+
+})
+
+---
+
+-- No Fog 💨
+
+PlayerTab:CreateToggle({
+    Name = "No Fog",
+    CurrentValue = false,
+
+    Callback = function(Value)
+
+        if Value then
+            Lighting.FogEnd = 1000000
+        else
+            Lighting.FogEnd = 1000
+        end
+
+    end,
+})
+
 ---------------------------------------------------
 -- 🔥 ABA AIM 🎯
 ---------------------------------------------------
@@ -1086,5 +1016,81 @@ AimTab:CreateToggle({
     Callback = function(Value)
 
         FOV.Visible = Value
+    end,
+})
+
+---------------------------------------------------
+-- ABA MISC 🛠️
+---------------------------------------------------
+
+local MiscTab =
+Window:CreateTab("Misc 🛠️", 4483362458)
+
+---------------------------------------------------
+-- ANTI AFK
+---------------------------------------------------
+
+local AntiAFKConnection
+
+MiscTab:CreateToggle({
+    Name = "Anti AFK",
+    CurrentValue = false,
+
+    Callback = function(Value)
+
+        if Value then
+
+            local VirtualUser = game:GetService("VirtualUser")
+
+            AntiAFKConnection = LocalPlayer.Idled:Connect(function()
+
+                VirtualUser:CaptureController()
+                VirtualUser:ClickButton2(Vector2.new(0,0))
+
+            end)
+
+        else
+
+            if AntiAFKConnection then
+                AntiAFKConnection:Disconnect()
+                AntiAFKConnection = nil
+            end
+
+        end
+    end,
+})
+
+---------------------------------------------------
+-- REJOIN
+---------------------------------------------------
+
+MiscTab:CreateButton({
+    Name = "Rejoin",
+
+    Callback = function()
+
+        TeleportService:Teleport(
+            game.PlaceId,
+            LocalPlayer
+        )
+
+    end,
+})
+
+---------------------------------------------------
+-- RESET CHARACTER
+---------------------------------------------------
+
+MiscTab:CreateButton({
+    Name = "Reset Character",
+
+    Callback = function()
+
+        local Char = LocalPlayer.Character
+
+        if Char and Char:FindFirstChild("Humanoid") then
+            Char.Humanoid.Health = 0
+        end
+
     end,
 })
