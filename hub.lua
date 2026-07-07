@@ -11,7 +11,7 @@ local Camera = workspace.CurrentCamera
 
 local Window = Rayfield:CreateWindow({
 Name = "🔥 JuanzotiXiter | JJK",
-LoadingTitle = "JuanzotiXiter",
+LoadingTitle = "🔥 JuanzotiXiter",
 LoadingSubtitle = "Jujutsu Kaisen Hub",
 ConfigurationSaving = {
 Enabled = true,
@@ -474,6 +474,39 @@ end)
 
 ---
 
+-- PROTECTION BUBBLE
+
+PlayerTab:CreateToggle({
+Name = "Protection Bubble",
+CurrentValue = false,
+
+Callback = function(Value)  
+
+    getgenv().BubbleEnabled = Value  
+
+    local char = LocalPlayer.Character  
+    if not char then return end  
+
+    if Value then  
+
+        local ff = Instance.new("ForceField")  
+        ff.Visible = true  
+        ff.Parent = char  
+
+    else  
+
+        local ff = char:FindFirstChildOfClass("ForceField")  
+
+        if ff then  
+            ff:Destroy()  
+        end  
+    end  
+end,
+
+})
+
+---
+
 -- FULLBRIGHT
 
 PlayerTab:CreateToggle({
@@ -572,36 +605,6 @@ end,
 
 ---
 
--- PROTECTION BUBBLE
-
-PlayerTab:CreateToggle({
-Name = "Protection Bubble",
-CurrentValue = false,
-
-Callback = function(Value)  
-
-    getgenv().BubbleEnabled = Value  
-
-    local char = LocalPlayer.Character  
-    if not char then return end  
-
-    if Value then  
-
-        local ff = Instance.new("ForceField")  
-        ff.Visible = true  
-        ff.Parent = char  
-
-    else  
-
-        local ff = char:FindFirstChildOfClass("ForceField")  
-
-        if ff then  
-            ff:Destroy()  
-        end  
-    end  
-end,
-
-})
 
 ---------------------------------------------------
 -- ABA ESP 👁️
