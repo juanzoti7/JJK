@@ -262,23 +262,26 @@ local SavedJump = 50
 
 -- SPEED
 
-PlayerTab:CreateSlider({
-Name = "WalkSpeed",
-Range = {16, 350},
-Increment = 1,
-CurrentValue = 16,
+PlayerTab:CreateInput({
+    Name = "WalkSpeed",
+    PlaceholderText = "Digite a velocidade",
+    RemoveTextAfterFocusLost = false,
 
-Callback = function(Value)  
+    Callback = function(Text)
 
-    SavedSpeed = Value  
+        local Speed = tonumber(Text)
 
-    local char = LocalPlayer.Character  
+        if Speed then
 
-    if char and char:FindFirstChild("Humanoid") then  
-        char.Humanoid.WalkSpeed = Value  
-    end  
-end,
+            SavedSpeed = Speed
 
+            local Char = LocalPlayer.Character
+
+            if Char and Char:FindFirstChild("Humanoid") then
+                Char.Humanoid.WalkSpeed = Speed
+            end
+        end
+    end,
 })
 
 
@@ -286,27 +289,45 @@ end,
 
 -- JUMP
 
-PlayerTab:CreateSlider({
-Name = "JumpPower",
-Range = {50, 250},
-Increment = 5,
-CurrentValue = 50,
+PlayerTab:CreateInput({
+    Name = "JumpPower",
+    PlaceholderText = "Digite o Jump",
+    RemoveTextAfterFocusLost = false,
 
-Callback = function(Value)  
+    Callback = function(Text)
 
-    SavedJump = Value  
+        local Jump = tonumber(Text)
 
-    local char = LocalPlayer.Character  
+        if Jump then
 
-    if char and char:FindFirstChild("Humanoid") then  
+            SavedJump = Jump
 
-        local hum = char.Humanoid  
+            local Char = LocalPlayer.Character
 
-        hum.UseJumpPower = true  
-        hum.JumpPower = Value  
-    end  
-end,
+            if Char and Char:FindFirstChild("Humanoid") then
+                Char.Humanoid.UseJumpPower = true
+                Char.Humanoid.JumpPower = Jump
+            end
+        end
+    end,
+})
 
+PlayerTab:CreateToggle({
+    Name = "Ativar Speed + Jump",
+    CurrentValue = false,
+
+    Callback = function(Value)
+        local Char = LocalPlayer.Character
+        if Char and Char:FindFirstChild("Humanoid") then
+            if Value then
+                Char.Humanoid.WalkSpeed = SavedSpeed
+                Char.Humanoid.JumpPower = SavedJump
+            else
+                Char.Humanoid.WalkSpeed = NormalSpeed
+                Char.Humanoid.JumpPower = NormalJump
+            end
+        end
+    end,
 })
 
 
