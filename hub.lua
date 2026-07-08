@@ -778,7 +778,7 @@ Callback = function(Value)
         Lighting.Brightness = 1  
         Lighting.ClockTime = 12  
         Lighting.FogEnd = 1000  
-        Lighting.GlobalShadows = true  
+        Lighting.GlobalShadows = true
     end  
 end,
 
@@ -812,6 +812,8 @@ Callback = function()
 end,
 
 })
+
+---
 
 ---------------------------------------------------
 -- 🔥 ABA AIM 🎯
@@ -1076,5 +1078,26 @@ MiscTab:CreateToggle({
 
         end
 
+    end,
+})
+
+local Camera = workspace.CurrentCamera
+
+MiscTab:CreateSlider({
+    Name = "FOV",
+    Range = {70, 150},
+    Increment = 1,
+    Suffix = " FOV",
+    CurrentValue = 70,
+    Flag = "FOVSlider",
+    Callback = function(Value)
+        Camera.FieldOfView = Value
+    end,
+})
+
+MiscTab:CreateButton({
+    Name = "Resetar FOV",
+    Callback = function()
+        Camera.FieldOfView = 70
     end,
 })
