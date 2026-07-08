@@ -1101,3 +1101,42 @@ MiscTab:CreateButton({
         Camera.FieldOfView = 70
     end,
 })
+
+---
+
+local RunService = game:GetService("RunService")
+
+local FPS = false
+local FPSLabel
+
+Misc:CreateToggle({
+    Name = "Mostrar FPS",
+    CurrentValue = false,
+    Flag = "ShowFPS",
+    Callback = function(Value)
+        FPS = Value
+        
+        if Value then
+            FPSLabel = Instance.new("TextLabel")
+            FPSLabel.Size = UDim2.new(0, 150, 0, 40)
+            FPSLabel.Position = UDim2.new(0, 10, 0, 10)
+            FPSLabel.BackgroundTransparency = 1
+            FPSLabel.TextScaled = true
+            FPSLabel.Parent = game.Players.LocalPlayer.PlayerGui
+            
+            task.spawn(function()
+                while FPS do
+                    local fps = math.floor(1 / RunService.RenderStepped:Wait())
+                    FPSLabel.Text = "FPS: "..fps
+                end
+                if FPSLabel then
+                    FPSLabel:Destroy()
+                end
+            end)
+        else
+            if FPSLabel then
+                FPSLabel:Destroy()
+            end
+        end
+    end,
+})
